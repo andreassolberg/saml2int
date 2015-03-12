@@ -1,0 +1,58 @@
+<header class="navbar navbar-default navbar-static-top bs-docs-nav" id="top" role="banner">
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <!-- <a class="navbar-brand" href="/"><img src="/bower_components/uninett-theme/images/UNINETT_logo.svg" alt="Uninett logo" type="image/svg+xml"></a> -->
+    </div>
+
+    <div class="navbar-department">
+      <a href="/"><div class="department">SAML2int</div></a>
+    </div>
+
+    <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+
+      <ul class="nav navbar-nav">
+
+
+        <li class="dropdown 
+          {% if page.slug == "current" %}active{% endif %}
+          {% if page.slug == "profile01" %}active{% endif %}
+          ">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Deployment profile <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            
+            <li {% if page.slug == "current" %} class="active"{% endif %}>
+              <a href="/profile/current">Current version 0.2</a></li>
+
+            <li{% if page.slug == "profile01" %} class="active"{% endif %}>
+              <a target="" href="/profile/0.1">Version 0.1</a>
+            </li>
+          </ul>
+        </li>
+
+
+        <li{% if page.slug == "about" %} class="active"{% endif %}>
+          <a href="/about/">About</a>
+        </li>
+
+        <li{% if page.slug == "partners" %} class="active"{% endif %}>
+          <a target="" href="/partners/">Partners</a>
+        </li>
+<!-- 
+        <li{% if page.slug == "testing" %} class="active"{% endif %}>
+          <a target="" href="/testing/">Interop. testing</a>
+        </li> -->
+
+        <li{% if page.slug == "contact" %} class="active"{% endif %}>
+          <a href="/contact/">Contact</a>
+        </li>
+
+
+
+
+      </ul>
+
+    </nav>
+  </div>
+</header>

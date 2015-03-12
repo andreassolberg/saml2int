@@ -1,0 +1,48 @@
+---
+layout: default
+title: About SAML2int
+slug: about
+
+---
+
+
+<!-- History
+================================================== -->
+<div class="bs-docs-section">
+
+
+  <p class="lead">The most common usage of the Interoperable SAML 2.0 Profile, is when a federation tells its entities to follow the profile when connecting to the federation.</p>
+
+  <p>If a federation tells an entity to follow this profile, it influences how the entity should configure it's SAML 2.0 product. There may also be institusions or organizations that would like to implement SAML 2.0 from sratch or from an existing library, and then this profile will put a minimal requirement of what part of the SAML 2.0 standard that at least MUST be implemented.</p>
+  
+  <p>It is possible for a federation to use this profile as a base, and then put additional requirements on top of it. For intra-federation connections it is reccomended to put as few as possible additional SAML 2.0 deployment requirements beyond this profile.</p>
+  
+  <p>Below is a summary of the most important considerations for Service Providers and Identity Providers that needs to be deployed according to this profile. For <a href="/profile">more details, go to the profile</a>.</p>
+</div>
+
+
+<!-- Team
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="team" class="page-header">For <span>Service Providers</span></h1>
+
+  <p>The AuthN request MUST be sent using the HTTP-REDIRECT binding and SHOULD NOT be signed. The Request MUST include an AssertionConsumerURL, and SHOULD NOT include an RequestedAuthnContext element. NameIDPolicy SHOULD be included and set to True. Requested NameIDFormat should be transient or persistent.</p>
+  <p>The Response will be returned using the HTTP-POST binding. Unsolicited responses MUST be supported. Attributes provided by the Idenity Provider will be included in the response, and the attribute name format will be URI.</p>
+  <p>The Service Provider is reccomended to have all its SAML 2.0 endpoints using SSL/HTTPS. If the endpoints are not secured with SSL/HTTPS, the Service Provider MUST have a keypair and its public key exposed in its metadata, such that the Identity Provider can encrypt the response using the EncryptedAssertions element.</p>
+  <p>If the Service Provider does have its endpoints secured, there is NOT any requirements in this profiles that enforces the Service Provider to maintain a keypair for use with xmlsec on outgoing signatures or incomming encryptions.</p>
+
+</div>
+
+
+<!-- Brand
+================================================== -->
+<div class="bs-docs-section">
+  <h1 id="brand" class="page-header">For <span>Identity Providers</span></h1>
+
+
+  <p>Identity Provider MUST support to receive incomming AuthN requests with the HTTP-REDIRECT binding, and can not expect them to be signed. The request will include an AssertionConsumerURL that MUST be cross-checked with the Service Provider metadata.</p>
+  <p>The Identity Provider MUST support transient NameIDs. If the Identity Provider wants to provide user attributes to the Service provider, they SHOULD be included in the Response, in one single Assertion and one single AttributeStatement. The attribute name format should be URI.</p>
+  <p>The Identity Provider MUST have established a keypair, and exposed its public key in its metadata, to be used with xmlsec for signing outgoing messages.</p>
+  <p>The Identity Provider MUST be able to encrypt outgoing messages to Service Providers that do not have its endpoints secured with SSL/HTTPS.</p>
+
+</div>

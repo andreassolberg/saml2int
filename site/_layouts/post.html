@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    {% include header.html %}
+
+  </head>
+  <body class="bs-docs-home">
+    <!-- <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a> -->
+
+    <!-- Docs master nav -->
+    {% include nav/main.html %}
+
+
+    <div class="container bs-docs-container">
+
+      <div class="row">
+        <div class="col-md-12" role="main">
+
+        <p style="margin-top: 1.4em; margin-bottom: 0px"><a href="/">« Back to frontpage </a></p>
+
+        <h2>{{ page.title }}</h2>
+
+        <div style="margin: 1.6em; color: #666; font-size: 90%">
+            <span class="author"><i class="glyphicon glyphicon-user"></i> {% if page.author %}{{page.author}}{% else %}Andreas Åkre Solberg{% endif%}</span><br />
+
+            <span><i class="glyphicon glyphicon-time"></i> <time datetime="{{page.date|date:"%F"}}">{{page.date|date:"%b %d, %Y"}}</time></span><br/>
+
+            <span class="category"><i class="glyphicon glyphicon-tag"></i> {{ page.categories | category_links }}</span>
+
+          </div> 
+
+          <!-- Page content of course! -->
+          {{ content }}
+
+          </div>
+          </div>
+          </div>
+
+    {% include footer.html %}
+  </body>
+</html>

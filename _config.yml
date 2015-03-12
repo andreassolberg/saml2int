@@ -1,0 +1,14 @@
+# Dependencies
+markdown:         kramdown
+highlighter:      rouge
+
+# Permalinks
+permalink:        pretty
+
+# Server
+source:           site
+destination:      dist
+host:             0.0.0.0
+port:             9001
+baseurl:          /
+encoding:         UTF-8

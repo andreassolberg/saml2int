@@ -1,0 +1,17 @@
+{
+	"name": "saml2int",
+	"description": "Web site for SAML2int.",
+	"version": "0.1.0",
+	"keywords": [
+		"authorization","saml"
+	],
+	"homepage": "http://saml2int.org",
+	"author": "Andreas Åkre Solberg",
+	"dependencies": {
+		"requirejs": "*",
+		"uninett-theme": "git@scm.uninett.no:system/uninett-theme.git",
+		"font-awsome": "*"
+	},
+	"cwd": "site",
+	"directory": "site/bower_components"
+}

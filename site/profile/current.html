@@ -1,0 +1,213 @@
+---
+layout: default
+title: SAML2int profile v0.2.1
+slug: current
+lead: "SAML 2.0 Interoperability Deployment Profile"
+---
+<div class=" bs-docs-section">
+
+
+
+	<h2><a name="section1" id="section1" />1 Required Information</a></h2>
+
+	<ul>
+	<li>Document identifier: <code>http://saml2int.org/profile</code></li>
+	</ul>
+
+	<h2><a name="section2" id="section2" />2 Requirements notation</a></h2>
+
+	<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [<a href="http://www.ietf.org/rfc/rfc2119.txt">RFC2119</a>].</p>
+
+	<p>The use of SHOULD, SHOULD NOT, and RECOMMENDED reflects broad consensus on deployment practices intended to
+	foster both interoperability and guarantees of security and confidentiality needed to satisfy the
+	requirements of many organizations that engage in the use of federated identity. Deviating may limit a
+	deployment's ability to technically interoperate without additional negotiation, and should be undertaken
+	with caution.</p>
+
+	<h2><a name="section3" id="section3" />3 Introduction</a></h2>
+
+	<p>This profile specifies behavior and options that deployments of the SAML V2.0 Web Browser SSO Profile [<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf">SAML2Prof</a>] are required or permitted to rely on. The requirements specified are in addition to all normative requirements of the original profile, as modified by the Approved Errata [<a href="http://docs.oasis-open.org/security/saml/v2.0/sstc-saml-approved-errata-2.0.pdf">SAML2Err</a>], and readers should be familiar with all relevant reference documents. Any such requirements are not repeated here except where deemed necessary to highlight a point of discussion or draw attention to an issue addressed in errata, but remain implied.</p>
+
+	<p>This profile addresses the content, exchange, and processing of SAML messages only, and does not address deployment details that go beyond that scope. Furthermore, nothing in the profile should be taken to imply that disclosing personally identifiable information, or indeed any information, is required from an Identity Provider with respect to any particular Service Provider. That remains at the discretion of applicable settings, user consent, or other appropriate means in accordance with regulations and policies.</p>
+
+	<p>Note that SAML features that are optional, or lack mandatory processing rules, are assumed to be optional and out of scope of this profile if not otherwise precluded or given specific processing rules.</p>
+
+	<h2><a name="section4" id="section4" />4 References to SAML 2.0 specification</a></h2>
+
+	<p>When referring to elements from the SAML 2.0 core specification [<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf">SAML2Core</a>], the following syntax is used:</p>
+
+	<ul>
+	<li><code>&lt;saml2p:Protocolelement&gt;</code> - for elements from the SAML 2.0 Protocol namespace.</li>
+	<li><code>&lt;saml2:Assertionelement&gt;</code> - for elements from the SAML 2.0 Assertion namespace.</li>
+	</ul>
+
+	<p>When referring to elements from the SAML 2.0 metadata specification [<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf">SAML2Meta</a>], the following syntax is used:</p>
+
+	<ul>
+	<li><code>&lt;md:Metadataelement&gt;</code></li>
+	</ul>
+
+	<p>When referring to elements from the Identity Provider Discovery Service Protocol and Profile [<a href="http://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-idp-discovery.pdf">IdPDisco</a>], the following syntax is used:</p>
+
+	<ul>
+	<li><code>&lt;idpdisc:DiscoveryResponse&gt;</code></li>
+	</ul>
+
+	<h2><a name="section5" id="section5" />5 Metadata and Trust Management</a></h2>
+
+	<p>Identity Providers and Service Providers MUST provide a SAML 2.0 Metadata document representing its entity. How metadata is exchanged is out of scope of this specification. Provided metadata MUST conform to the SAML V2.0 Metadata Interoperability Profile Version 1.0 [<a href="http://docs.oasis-open.org/security/saml/Post2.0/sstc-metadata-iop.pdf">MetaIOP</a>].</p>
+
+	<p>Entities SHOULD publish its metadata using the Well-Known Location method defined in [<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf">SAML2Meta</a>].</p>
+
+	<p>Metadata documents provided by an Identity Provider MUST include an <code>&lt;md:IDPSSODescriptor&gt;</code> element containing all necessary <code>&lt;md:KeyDescriptor&gt;</code> and <code>&lt;md:SingleSignOnService&gt;</code> elements. The metadata SHOULD include one or more <code>&lt;md:NameIDFormat&gt;</code> elements indicating which <code>&lt;saml2:NameID&gt;</code> Format values are supported.</p>
+
+	<p>Metadata documents provided by a Service Provider MUST include an <code>&lt;md:SPSSODescriptor&gt;</code> element containing all necessary <code>&lt;md:KeyDescriptor&gt;</code> and <code>&lt;md:AssertionConsumerService&gt;</code> elements. The metadata SHOULD also include one or more <code>&lt;md:NameIDFormat&gt;</code> elements indicating which <code>&lt;saml2:NameID&gt;</code> Format values are supported and one or more <code>&lt;md:AttributeConsumingService&gt;</code> elements describing the service(s) offered and their attribute requirements.</p>
+
+	<p>Metadata provided by Service Provider SHOULD also contain a descriptive name of the service that the Service Provider represents (not the company) in at least English. It is RECOMMENDED to also provide the name in other languages which is much used in the geographic scope of the deployment. The name should be placed in the <code>&lt;md:ServiceName&gt;</code> in the <code>&lt;md:AttributeConsumingService&gt;</code> container.</p>
+
+	<p>If a Service Provider forgoes the use of TLS/SSL for its Assertion Consumer Service endpoints, then its metadata SHOULD include a <code>&lt;md:KeyDescriptor&gt;</code> suitable for XML Encryption. Note that use of TLS/SSL is RECOMMENDED.</p>
+
+	<p>If a Service Provider plans to utilize a Discovery Service supporting the Identity Provider Discovery Service Protocol Profile [<a href="http://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-idp-discovery.pdf">IdPDisco</a>], then its metadata MUST include one or more <code>&lt;idpdisc:DiscoveryResponse&gt;</code> elements in the <code>&lt;md:Extensions&gt;</code> element of its <code>&lt;md:SPSSODescriptor&gt;</code> element.</p>
+
+	<p>Metadata provided by both Identity Providers and Service Provider SHOULD contain contact information for <em>support</em> and for a <em>technical contact</em>.  The <code>&lt;md:EntityDescriptor&gt;</code> element SHOULD contain both a <code>&lt;md:ContactPerson&gt;</code> element with a <code>contactType</code> of "<code>support</code>" and a <code>&lt;md:ContactPerson&gt;</code> element with a <code>contactType</code> of "<code>technical</code>". The <code>&lt;md:ContactPerson&gt;</code> elements SHOULD contain at least one <code>&lt;md:EmailAddress&gt;</code>. The <em>support</em> address MAY be used for generic support questions about the service, while the <em>technical</em> contact may be contacted regarding technical interoperability problems. The <em>technical contact</em>  MUST be responsible for the technical operation of the system(s) reflected in the metadata.</p>
+
+	<h2><a name="section6" id="section6" />6 Name Identifiers</a></h2>
+
+	<p>Identity Providers MUST support the <code>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</code> name identifier format [<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf">SAML2Core</a>]. They SHOULD support the <code>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</code> name identifier format [<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf">SAML2Core</a>]. Support for other formats is OPTIONAL.</p>
+
+	<p>Service Providers, if they rely at all on particular name identifier formats, MUST support one of the following:</p>
+
+	<ul>
+	<li><code>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</code></li>
+	<li><code>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</code></li>
+	</ul>
+
+	<p>Reliance on other formats by Service Providers is NOT RECOMMENDED.</p>
+
+	<p>Note that these requirements are reflected in additional constraints on message content in subsequent sections.</p>
+
+	<h2><a name="section7" id="section7" />7 Attributes</a></h2>
+
+	<p>Any <code>&lt;saml2:Attribute&gt;</code> elements exchanged via any SAML 2.0 messages, assertions, or metadata MUST contain a <code>NameFormat</code> of <code>urn:oasis:names:tc:SAML:2.0:attrname-format:uri</code>.</p>
+
+	<p>The use of LDAP/X.500 attributes and the LDAP/X.500 attribute profile [<a href="http://docs.oasis-open.org/security/saml/SpecDrafts-Post2.0/sstc-saml-attribute-x500-cd-01.pdf">X500SAMLattr</a>] is RECOMMENDED where possible.</p>
+
+	<p>It is RECOMMENDED that the content of <code>&lt;saml2:AttributeValue&gt;</code> elements exchanged via any SAML 2.0 messages, assertions, or metadata be limited to a single child text node (i.e., a simple string value).</p>
+
+	<p>Many identity federation use cases rely on the exchange of a so-called "targeted" or "pair-wise" user identifier that is typically opaque and varies for a given user when accessing different Service Providers. Various approaches to this compatible with SAML exist, including the SAML 2.0 "<code>persistent</code>" Name Identifier format [<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf">SAML2Core</a>], the <code>eduPersonTargetedID</code> attribute [<a href="http://middleware.internet2.edu/eduperson/">eduPerson</a>], and the <em>Private Personal Identifier claim</em> [<a href="http://docs.oasis-open.org/imi/identity/v1.0/identity.html">IMI</a>].</p>
+
+	<p>This profile RECOMMENDS the use of the <code>&lt;saml2:NameID&gt;</code> element (within the <code>&lt;saml2:Subject&gt;</code> element), carried within the <code>&lt;saml2:Subject&gt;</code> with a <code>Format</code> of <code>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</code> when an identifier of this nature is required.</p>
+
+	<p>If an opaque targeted user identifier is being provided to the Service Provider, it is RECOMMENDED to use a <code>&lt;saml2:NameID&gt;</code> construct with a <code>Format</code> of <code>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</code> rather than transporting that identifier as an <code>&lt;saml2:Attribute&gt;</code>.</p>
+
+	<h2><a name="section8" id="section8" />8 Authentication Requests</a></h2>
+
+	<h3><a name="section81" id="section81" />8.1 Binding and Security Requirements</a></h3>
+
+	<p>The <code>&lt;saml2p:AuthnRequest&gt;</code> message issued by a Service Provider MUST be communicated to the Identity Provider using the <code>HTTP-REDIRECT</code> binding [<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-bindings-2.0-os.pdf">SAML2Bind</a>].</p>
+
+	<p>Identity Providers MAY omit the verification of signatures in conjunction with this binding.</p>
+
+	<p>The endpoints at which an Identity Provider receives a <code>&lt;saml2p:AuthnRequest&gt;</code> message, and all subsequent exchanges with the user agent, SHOULD be protected by TLS/SSL.</p>
+
+	<h3><a name="section82" id="section82" />8.2 Message Content</a></h3>
+
+	<p>The <code>&lt;saml2p:AuthnRequest&gt;</code> message issued by a Service Provider MUST contain an <code>AssertionConsumerServiceURL</code> attribute identifying the desired response location. The <code>ProtocolBinding</code> attribute, if present, MUST be set to <code>urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST</code>.</p>
+
+	<p>In verifying the Service Provider's Assertion Consumer Service, it is RECOMMENDED that the Identity Provider perform a case-sensitive
+	string comparison between the requested <code>&lt;saml2p:AssertionConsumerServiceURL&gt;</code> value and the values found in the Service Provider's metadata. It is OPTIONAL to apply any form of URL canonicalization, which means the Service Provider SHOULD NOT rely on differently canonicalized values in these two locations. As an example, the Service Provider SHOULD NOT use a hostname with port number (such as
+	<code>https://sp.example.no:80/acs</code>) in its request and without (such as <code>https://sp.example.no/acs</code>) in its metadata.</p>
+
+	<p>The <code>&lt;saml2p:AuthnRequest&gt;</code> message MUST NOT contain a <code>&lt;saml2:Subject&gt;</code> element.</p>
+
+	<p>Identity Providers that act as a proxy (per section 3.4.1.5.1 of [<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf">SAML2Core</a>]) MUST support <code>&lt;saml2p:AuthnRequest&gt;</code> messages that do not contain a <code>&lt;saml2p:Scoping&gt;</code> element.</p>
+
+	<p>The <code>&lt;saml2p:AuthnRequest&gt;</code> message SHOULD contain a <code>&lt;saml2p:NameIDPolicy&gt;</code> element with an <code>AllowCreate</code> attribute of "<code>true</code>". Its <code>Format</code> attribute, if present, SHOULD be set to one of the following values:</p>
+
+	<ul>
+	<li><code>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</code></li>
+	<li><code>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</code></li>
+	</ul>
+
+	<p>The <code>&lt;saml2p:AuthnRequest&gt;</code> message MAY contain a <code>&lt;saml2p:RequestedAuthnContext&gt;</code> element, but SHOULD do so only in the presence of an arrangement between the Identity and Service Providers regarding the Authentication Context definitions in use. The <code>Comparison</code> attribute SHOULD be omitted or be set to "<code>exact</code>".</p>
+
+	<h2><a name="section9" id="section9" />9 Responses</a></h2>
+
+	<h3><a name="section91" id="section91" />9.1 Binding and Security Requirements</a></h3>
+
+	<p>The <code>&lt;saml2p:Response&gt;</code> message issued by an Identity Provider MUST be communicated to the Service Provider using the <code>HTTP-POST</code> binding [<a href="http://docs.oasis-open.org/security/saml/v2.0/saml-bindings-2.0-os.pdf">SAML2Bind</a>].</p>
+
+	<p>The endpoint(s) at which a Service Provider receives a <code>&lt;saml2p:Response&gt;</code> message SHOULD be protected by TLS/SSL. If this is not the case, then Identity Providers SHOULD utilize XML Encryption and return a <code>&lt;saml2:EncryptedAssertion&gt;</code> element in the <code>&lt;saml2p:Response&gt;</code> message. The use of the <code>&lt;saml2:EncryptedID&gt;</code> and <code>&lt;saml2:EncryptedAttribute&gt;</code> elements is NOT RECOMMENDED; when possible, encrypt the entire assertion.</p>
+
+	<p>Whether encrypted or not, the <code>&lt;saml2:Assertion&gt;</code> element issued by the Identity Provider MUST itself be signed directly using a <code>&lt;ds:Signature&gt;</code> element within the <code>&lt;saml2:Assertion&gt;</code>.</p>
+
+	<p>Service Providers MUST support unsolicited <code>&lt;saml2p:Response&gt;</code> messages (i.e., responses that are not the result of an earlier <code>&lt;saml2p:AuthnRequest&gt;</code> message).</p>
+
+	<h3><a name="section92" id="section92" />9.2 Message Content</a></h3>
+
+	<p>Assuming a successful response, the <code>&lt;saml2p:Response&gt;</code> message issued by an Identity Provider MUST contain exactly one assertion (either a <code>&lt;saml2:Assertion&gt;</code> or an <code>&lt;saml2:EncryptedAssertion&gt;</code> element). The assertion MUST contain exactly one <code>&lt;saml2:AuthnStatement&gt;</code> element and MAY contain zero or one <code>&lt;saml2:AttributeStatement&gt;</code> elements.</p>
+
+	<p>The <code>&lt;saml2:Subject&gt;</code> element of the assertions issued by an Identity Provider SHOULD contain a <code>&lt;saml2:NameID&gt;</code> element. The <code>&lt;saml2:Subject&gt;</code> element MUST NOT include a <code>&lt;saml2:BaseID&gt;</code> nor a <code>&lt;saml2:EncryptedID&gt;</code>. In the absence of a <code>&lt;saml2p:NameIDPolicy&gt;</code> Format attribute in the Service Provider's <code>&lt;saml2p:AuthnRequest&gt;</code> message, or a <code>&lt;md:NameIDFormat&gt;</code> element in the Service Provider's metadata, the Format of the <code>&lt;saml2:NameID&gt;</code> SHOULD be set to <code>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</code>.</p>
+
+	<h2><a name="section10" id="section10" />10 Normative References</a></h2>
+
+	<dl>
+	<dt>[RFC2119]</dt>
+	<dd><a href="http://www.ietf.org/rfc/rfc2119.txt">Bradner, S., <br />Key words for use in RFCs to Indicate Requirement Levels, <br />March 1997.</a></dd>
+
+	<dt>[SAML2Core]</dt>
+	<dd><a href="http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf">OASIS Standard, <br />Assertions and Protocols for the OASIS Security Assertion Markup Language (SAML) V2.0, <br />March 2005.</a></dd>
+
+	<dt>[SAML2Bind]</dt>
+	<dd><a href="http://docs.oasis-open.org/security/saml/v2.0/saml-bindings-2.0-os.pdf">OASIS Standard, <br />Bindings for the OASIS Security Assertion Markup Language (SAML) V2.0, <br />March 2005.</a></dd>
+
+	<dt>[SAML2Prof]</dt>
+	<dd><a href="http://docs.oasis-open.org/security/saml/v2.0/saml-profiles-2.0-os.pdf">OASIS Standard, <br />Profiles for the OASIS Security Assertion Markup Language (SAML) V2.0, <br />March 2005.</a></dd>
+
+	<dt>[SAML2Meta]</dt>
+	<dd><a href="http://docs.oasis-open.org/security/saml/v2.0/saml-metadata-2.0-os.pdf">OASIS Standard, <br />Metadata for the OASIS Security Assertion Markup Language (SAML) V2.0, <br />March 2005.</a></dd>
+
+	<dt>[X500SAMLattr]</dt>
+	<dd><a href="http://docs.oasis-open.org/security/saml/SpecDrafts-Post2.0/sstc-saml-attribute-x500-cd-01.pdf">SAML V2.0 X.500/LDAP Attribute Profile</a></dd>
+
+	<dt>[MetaIOP]</dt>
+	<dd><a href="http://docs.oasis-open.org/security/saml/Post2.0/sstc-metadata-iop.pdf">OASIS Committee <br />Specification, SAML V2.0 Metadata Interoperability Profile Version 1.0, <br />August 2009.</a></dd>
+
+	<dt>[IdPDisco]</dt>
+	<dd><a href="http://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-idp-discovery.pdf">OASIS Committee <br />Specification, Identity Provider Discovery Service Protocol and Profile, <br />March 2008.</a></dd>
+
+	<dt>[SAML2Err]</dt>
+	<dd><a href="http://docs.oasis-open.org/security/saml/v2.0/sstc-saml-approved-errata-2.0.pdf">OASIS Approved Errata, <br />SAML V2.0 Errata.</a></dd>
+	</dl>
+
+	<h2><a name="section11" id="section11" />11 Non-Normative References</a></h2>
+
+	<dl>
+	<dt>[eduPerson]</dt>
+	<dd><a href="http://middleware.internet2.edu/eduperson/">eduPerson &amp; eduOrg Object Classes</a></dd>
+
+	<dt>[IMI]</dt>
+	<dd><a href="http://docs.oasis-open.org/imi/identity/v1.0/identity.html">Identity Metasystem Interoperability v1.0</a></dd>
+	</dl>
+
+	<h2><a name="section12" id="section12" />12 Authors' addresses</a></h2>
+
+	<ul>
+	<li>Andreas Åkre Solberg, UNINETT, <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;:&#97;&#x6e;&#100;&#x72;&#101;&#x61;&#115;&#x2e;s&#111;&#x6c;&#98;&#x65;&#114;&#x67;&#64;&#x75;&#x6e;&#105;&#x6e;&#101;&#x74;&#116;&#x2e;n&#111;">&#97;&#x6e;&#100;&#x72;&#101;&#x61;&#115;&#x2e;s&#111;&#x6c;&#98;&#x65;&#114;&#x67;&#64;&#x75;&#x6e;&#105;&#x6e;&#101;&#x74;&#116;&#x2e;n&#111;</a></li>
+	<li>Scott Cantor, Ohio State University, <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#99;&#97;&#x6e;&#x74;&#x6f;&#x72;&#x2e;&#50;&#64;&#111;&#115;&#117;&#x2e;&#x65;&#x64;&#x75;">&#99;&#97;&#x6e;&#x74;&#x6f;&#x72;&#x2e;&#50;&#64;&#111;&#115;&#117;&#x2e;&#x65;&#x64;&#x75;</a></li>
+	<li>Eve Maler, Sun Microsystems, <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;:&#101;&#x76;&#101;&#x2e;&#109;&#x61;l&#101;&#x72;&#64;&#x73;&#117;&#x6e;.&#99;&#x6f;&#109;">&#101;&#x76;&#101;&#x2e;&#109;&#x61;l&#101;&#x72;&#64;&#x73;&#117;&#x6e;.&#99;&#x6f;&#109;</a></li>
+	<li>Leif Johansson, Stockholm University, <a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#108;&#101;&#x69;&#x66;&#106;&#64;s&#x75;&#x6e;&#101;&#116;.&#x73;&#x65;">&#108;&#101;&#x69;&#x66;&#106;&#64;s&#x75;&#x6e;&#101;&#116;.&#x73;&#x65;</a></li>
+	<li>Jeff Hodges, Neustar, <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#74;&#x65;&#102;f&#x2e;&#72;&#x6f;&#x64;&#103;&#x65;&#115;&#64;&#x6e;&#101;u&#x73;&#116;&#x61;&#x72;&#46;&#x62;&#x69;&#122;">&#74;&#x65;&#102;f&#x2e;&#72;&#x6f;&#x64;&#103;&#x65;&#115;&#64;&#x6e;&#101;u&#x73;&#116;&#x61;&#x72;&#46;&#x62;&#x69;&#122;</a></li>
+	<li>Ian Young, <a href="&#109;&#97;&#x69;l&#116;&#x6f;&#x3a;i&#97;&#x6e;&#x40;&#105;&#97;&#x79;&#x2e;&#111;&#114;&#x67;&#x2e;&#117;&#107;">i&#97;&#x6e;&#x40;&#105;&#97;&#x79;&#x2e;&#111;&#114;&#x67;&#x2e;&#117;&#107;</a></li>
+	<li>Nate Klingenstein, <a href="&#109;&#97;&#x69;&#x6c;t&#111;&#58;&#x6e;&#x64;&#107;&#64;&#105;&#x6e;&#x74;&#101;&#114;&#x6e;&#x65;&#x74;&#50;&#46;&#x65;&#x64;u">&#x6e;&#x64;&#107;&#64;&#105;&#x6e;&#x74;&#101;&#114;&#x6e;&#x65;&#x74;&#50;&#46;&#x65;&#x64;u</a></li>
+	<li>Bob Morgan, <a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#58;&#114;&#x6c;&#x6d;o&#114;&#103;&#x61;&#x6e;&#64;&#119;&#97;&#x73;&#x68;&#x69;&#110;&#103;&#x74;&#x6f;&#x6e;&#46;&#101;&#100;&#x75;">&#114;&#x6c;&#x6d;o&#114;&#103;&#x61;&#x6e;&#64;&#119;&#97;&#x73;&#x68;&#x69;&#110;&#103;&#x74;&#x6f;&#x6e;&#46;&#101;&#100;&#x75;</a></li>
+	</ul>
+
+
+
+
+
+
+
+
+</div>
