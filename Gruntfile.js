@@ -47,7 +47,7 @@ module.exports = function(grunt) {
 			novaPush: {
 				command: function() {
 					grunt.log.writeln('Pushing to Nova PaaS');
-					return 'cd dist; cf push <%= novaConfig.name %> -b https://github.com/cloudfoundry-community/nginx-buildpack.git';
+					return 'cd dist; cf push <%= novaConfig.name %> -b staticfile-buildpack-1-0-0 -s cflinuxfs2';
 				}
 			}
 		}
