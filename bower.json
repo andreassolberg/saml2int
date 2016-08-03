@@ -9,7 +9,7 @@
 	"author": "Andreas Åkre Solberg",
 	"dependencies": {
 		"requirejs": "*",
-		"uninett-theme": "git@scm.uninett.no:system/uninett-theme.git",
+		"uninett-theme": "https://github.com/andreassolberg/uninett-bootstrap-theme.git",
 		"font-awsome": "*"
 	},
 	"cwd": "site",
