@@ -1,4 +1,4 @@
-FROM nginx
+FROM kasperrt/static_uninett:build-2
 
 COPY site /srv/www/site
 COPY .bowerrc /srv/www/.bowerrc
@@ -9,15 +9,6 @@ COPY package.json /srv/www/package.json
 COPY bower.json /srv/www/bower.json
 
 WORKDIR /srv/www
-
-ADD default.conf /etc/nginx/conf.d/default.conf
-
-RUN apt-get update && apt-get install -y curl npm python2.7 ruby-full git
-RUN ln -s `which nodejs` /usr/bin/node
-RUN rm -rf /var/lib/apt/lists/*
-
-RUN gem install jekyll --no-ri --no-rdoc
-RUN gem install rouge --no-ri --no-rdoc
 
 RUN npm install
 RUN node_modules/bower/bin/bower install --config.interactive=false -p --allow-root

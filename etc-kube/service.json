@@ -1,0 +1,22 @@
+{
+	"kind": "Service",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "saml2int"
+	},
+	"spec": {
+		"selector": {
+			"appid": "saml2int"
+		},
+		"ports": [{
+			"protocol": "TCP",
+			"port": 80,
+			"targetPort": 80
+		}, {
+			"protocol": "TCP",
+			"port": 443,
+			"targetPort": 443
+		}],
+		"type": "NodePort"
+	}
+}
