@@ -23,7 +23,7 @@
 			"spec": {
 				"containers": [{
 					"name": "saml2int",
-					"image": "uninettno/saml2int:build-1",
+					"image": "uninettno/saml2int:build-8",
 					"resources": {
 						"requests": {
 							"cpu": "10m",
@@ -43,20 +43,9 @@
 					"imagePullPolicy": "Always",
 					"ports": [{
 						"containerPort": 80
-					}],
-					"volumeMounts": [{
-						"name": "saml2int",
-						"mountPath": "/etc/secrets",
-						"readOnly": true
 					}]
 				}],
-				"restartPolicy": "Always",
-				"volumes": [{
-					"name": "saml2int",
-					"secret": {
-						"secretName": "saml2int"
-					}
-				}]
+				"restartPolicy": "Always"
 			}
 		}
 	}
