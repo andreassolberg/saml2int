@@ -18,6 +18,3 @@ RUN curl -o /srv/www/dist/bower_components/uninett-theme/fonts/colfaxMedium.woff
 RUN curl -o /srv/www/dist/bower_components/uninett-theme/fonts/colfaxRegular.woff http://mal.uninett.no/uninett-theme/fonts/colfaxRegular.woff
 RUN curl -o /srv/www/dist/bower_components/uninett-theme/fonts/colfaxThin.woff http://mal.uninett.no/uninett-theme/fonts/colfaxThin.woff
 RUN curl -o /srv/www/dist/bower_components/uninett-theme/fonts/colfaxRegularItalic.woff http://mal.uninett.no/uninett-theme/fonts/colfaxRegularItalic.woff
-
-
-EXPOSE 80
