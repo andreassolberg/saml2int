@@ -3,8 +3,6 @@ FROM kasperrt/static_uninett:build-2
 COPY site /srv/www/site
 COPY .bowerrc /srv/www/.bowerrc
 COPY _config.yml /srv/www/_config.yml
-COPY deploy_jenkins.sh /srv/www/deploy_jenkins.sh
-COPY nova.config.json /srv/www/nova.config.json
 COPY package.json /srv/www/package.json
 COPY bower.json /srv/www/bower.json
 
@@ -23,4 +21,3 @@ RUN curl -o /srv/www/dist/bower_components/uninett-theme/fonts/colfaxRegularItal
 
 
 EXPOSE 80
-EXPOSE 443
